@@ -1,9 +1,8 @@
-all: donut
-LIBS := -lraylib -lm
+SRCS := *.c
 
-donut: *.c
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+donut: $(SRCS)
+	clang $(SRCS) -o donut -lSDL2 -lm -g
 
-web: *.c
-	emcc -o web/donut.html $^ -Os ./raylib/src/libraylib.a -I./raylib/src -L./raylib/src -s USE_GLFW=3 --shell-file web/shell.html
+web: $(SRCS) web/shell.html
+	emcc -o web/donut.html $(SRCS) -Os -s USE_SDL=2 --shell-file web/shell.html
 
